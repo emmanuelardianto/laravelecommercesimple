@@ -15,10 +15,18 @@ class Product extends Model
         'slug',
         'description',
         'status',
-        'price'
+        'price',
+        'image_url'
     ];
 
     public function getRouteKeyName() {
         return 'slug';
+    }
+
+    public function getImageUrlAttribute($value) {
+        if(empty($value))
+            return 'http://placehold.jp/150x150.png';
+
+        return '/images/'.$value;
     }
 }

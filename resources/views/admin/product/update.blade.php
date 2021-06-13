@@ -41,8 +41,15 @@
             </div>
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">Price</label>
+            <label for="price" class="form-label">Price</label>
             <input type="number" class="form-control" name="price" value="{{ isset($product) ? $product->price : old('price') }}" required />
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Picture</label>
+            <div class="mb-2">
+                <img src="{{ isset($product) ? $product->image_url : 'http://placehold.jp/150x150.png' }}" id="imagePreview" alt="Product Image" title="Product Image" width="150px" />
+            </div>
+            <input type="file" name="image" id="imageInput" class="form-control" />
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
         <a href="{{ route('admin.product') }}" class="btn btn-secondary">Cancel</a>
@@ -65,5 +72,12 @@
         if(confirm('Are you sure want to delete this data?'))
             $('#deleteForm').submit();
     })
+
+    $('#imageInput').on('change', function() {
+        const file = this.files;
+        if(file) {
+            $('#imagePreview').attr('src', URL.createObjectURL(file[0]));
+        }
+    });
 </script>
 @endsection

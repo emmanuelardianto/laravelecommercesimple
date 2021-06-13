@@ -46,11 +46,22 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $image_url = '';
         if(is_null($product)) {
             $product = new Product();
+        } else {
+            $image_url = $product->getRawOriginal('image_url');
+        }
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image_url = \Str::slug($request->get('name')).time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+            $image->move($destinationPath, $image_url);
         }
 
         $product = $product->fill([
@@ -59,8 +70,10 @@ class ProductController extends Controller
             'slug' => \Str::slug($request->get('name')),
             'description' => $request->get('description'),
             'status' => $request->get('status'),
-            'price' => $request->get('price')
+            'price' => $request->get('price'),
+            'image_url' => $image_url
         ]);
+    
 
         $product->save();
         return redirect()->route('admin.product.edit', compact('product'))->with('success', 'Data saved.');
