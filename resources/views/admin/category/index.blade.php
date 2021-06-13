@@ -7,6 +7,7 @@
             <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Create</a>
         </span>
     </h1>
+    @include('components.alert')
     <table class="table table-bordered">
         <thead>
             <tr>

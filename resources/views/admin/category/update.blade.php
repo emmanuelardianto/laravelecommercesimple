@@ -13,6 +13,24 @@
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
         <a href="{{ route('admin.category') }}" class="btn btn-secondary">Cancel</a>
+        @if(@isset($category))
+        <button class="btn btn-danger" type="button" id="deleteBtn">Delete</button>
+        @endif
     </form>
+    @if(@isset($category))
+    <form method="POST" id="deleteForm" action="{{ route('admin.category.destroy', $category) }}" enctype="multipart/form-data">
+        {{ csrf_field() }}
+    </form>
+    @endif
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $('#deleteBtn').on('click', function(e) {
+        e.preventDefault();
+        if(confirm('Are you sure want to delete this data?'))
+            $('#deleteForm').submit();
+    })
+</script>
 @endsection

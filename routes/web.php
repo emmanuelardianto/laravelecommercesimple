@@ -28,4 +28,5 @@ Route::group([
     Route::post('/category/create', 'CategoryController@store')->name('category.store');
     Route::get('/category/{category}/edit', 'CategoryController@edit')->name('category.edit');
     Route::post('/category/{category}/edit', 'CategoryController@store')->name('category.update');
+    Route::post('/category/{category}/destroy', 'CategoryController@destroy')->name('category.destroy');
 });
