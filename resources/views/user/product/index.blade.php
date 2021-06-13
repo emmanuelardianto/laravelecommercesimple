@@ -1,13 +1,7 @@
 @extends('layout')
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <h1 class="my-3">Products</h1>
-    </div>
-</div>
-<div class="row">
+<div class="row py-4">
     <div class="col-lg-3 col-md-4 col-12">
-        <h5 class="mb-3">Categories</h5>
         <div class="list-group">
             @foreach($categories as $item)
             <a href="{{ route('user.product.byCategory', $item) }}" class="list-group-item list-group-item-action {{ isset($category) && $category == $item ? 'active' : '' }}" aria-current="true">{{ $item->name }}</a>
@@ -15,6 +9,7 @@
         </div>
     </div>
     <div class="col-lg-9 col-md-8 col-12">
+        <h1 class="my-3">{{ isset($category) ? $category->name : 'Products' }}</h1>
         <div class="row">
             @foreach($products as $item)
             <div class="col-md-4 col-sm-6 col-12 mb-4">

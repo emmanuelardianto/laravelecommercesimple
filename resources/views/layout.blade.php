@@ -14,37 +14,23 @@
     <!-- navbar start -->
     <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Larcommerce</a>
+            <a class="navbar-brand" href="/">Larcommerce</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.product') }}">User Product</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.category') }}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.product') }}">Product</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-                </li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('admin.category') }}">Categories</a></li>
+                        <li><a class="dropdown-item"  href="{{ route('admin.product') }}">Product</a></li>
+                    </ul>
                 </li>
             </ul>
             <form class="d-flex">
@@ -55,10 +41,22 @@
         </div>
     </nav>
     <!-- navbar end -->
-    <div class="container">
+    <div class="container mb-5">
         @yield('content')
     </div>
 
+
+    <!-- footer -->
+    <div class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center py-5">
+                    emmards - ecommerce
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Optional JavaScript; choose one of the two! -->
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
