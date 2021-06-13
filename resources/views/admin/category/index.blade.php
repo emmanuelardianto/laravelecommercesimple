@@ -1,7 +1,12 @@
 @extends('layout')
 @section('content')
 <div class="col-12">
-    <h1 class="my-3">Categories</h1>
+    <h1 class="my-3">
+        Categories
+        <span class="float-end">
+            <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Create</a>
+        </span>
+    </h1>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -11,7 +16,7 @@
         <tbody>
             @foreach($categories as $item)
             <tr>
-                <td>{{ $item->name }}</td>
+                <td><a href="{{ route('admin.category.edit', $item) }}" class="text-dark">{{ $item->name }}</a></td>
             </tr>
             @endforeach
         </tbody>

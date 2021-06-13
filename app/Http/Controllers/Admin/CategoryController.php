@@ -13,11 +13,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('name')->paginate(20);
-
-        return view('admin.category.index', compact('categories'));
+        $search = $request->get('search');
+        $categories = Category::orderBy('name');
+        if(!is_null($search)) {
+            $categories = $categories->where('name', 'like', '%'.$search.'%');
+        }
+        $categories = $categories->paginate(20);
+        return view('admin.category.index', compact('categories', 'search'));
     }
 
     /**
@@ -27,7 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.update');
     }
 
     /**
@@ -36,9 +40,23 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        if(is_null($category)) {
+            $category = new Category();
+        }
+
+        $category = $category->fill([
+            'name' => $request->get('name'),
+            'slug' => \Str::slug($request->get('name'))
+        ]);
+
+        $category->save();
+        return redirect()->route('admin.category.edit', compact('category'))->with('success', 'Data saved.');
     }
 
     /**
@@ -60,7 +78,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.category.update', compact('category'));
     }
 
     /**

@@ -24,4 +24,8 @@ Route::group([
         'as' => 'admin.'
     ],function () {
     Route::get('/category', 'CategoryController@index')->name('category');
+    Route::get('/category/create', 'CategoryController@create')->name('category.create');
+    Route::post('/category/create', 'CategoryController@store')->name('category.store');
+    Route::get('/category/{category}/edit', 'CategoryController@edit')->name('category.edit');
+    Route::post('/category/{category}/edit', 'CategoryController@store')->name('category.update');
 });
