@@ -29,4 +29,8 @@ class Product extends Model
 
         return '/images/'.$value;
     }
+
+    public function getPriceWithCurrencyAttribute() {
+        return '$ '.$this->price;
+    }
 }

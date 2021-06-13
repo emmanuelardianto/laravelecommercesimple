@@ -17,4 +17,8 @@ class Category extends Model
     public function getRouteKeyName() {
         return 'slug';
     }
+
+    public function getProductsAttribute() {
+        return \App\Models\Product::where('category_id', $this->id)->where('status', 1)->paginate(24);
+    }
 }

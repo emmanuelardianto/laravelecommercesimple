@@ -37,3 +37,12 @@ Route::group([
     Route::post('/product/{product}/edit', 'ProductController@store')->name('product.update');
     Route::post('/product/{product}/destroy', 'ProductController@destroy')->name('product.destroy');
 });
+
+Route::group([
+    'prefix' => '',
+    'namespace' => 'App\Http\Controllers\User',
+    'as' => 'user.'
+],function () {
+    Route::get('/product', 'ProductController@index')->name('product');
+    Route::get('/product/{category}', 'ProductController@byCategory')->name('product.byCategory');
+});
