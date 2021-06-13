@@ -2,7 +2,7 @@
 @section('content')
 <div class="col-12">
     <h1 class="my-3">
-        Categories {{ isset($category) ? 'Update' : 'Create' }}
+        Categories {{ isset($category) ? 'Update - '.$category->name : 'Create' }}
     </h1>
     @include('components.alert')
     <form method="POST" action="{{ !isset($category) ? route('admin.category.store') : route('admin.category.update', $category) }}" enctype="multipart/form-data">

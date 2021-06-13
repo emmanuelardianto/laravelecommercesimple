@@ -29,4 +29,11 @@ Route::group([
     Route::get('/category/{category}/edit', 'CategoryController@edit')->name('category.edit');
     Route::post('/category/{category}/edit', 'CategoryController@store')->name('category.update');
     Route::post('/category/{category}/destroy', 'CategoryController@destroy')->name('category.destroy');
+
+    Route::get('/product', 'ProductController@index')->name('product');
+    Route::get('/product/create', 'ProductController@create')->name('product.create');
+    Route::post('/product/create', 'ProductController@store')->name('product.store');
+    Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
+    Route::post('/product/{product}/edit', 'ProductController@store')->name('product.update');
+    Route::post('/product/{product}/destroy', 'ProductController@destroy')->name('product.destroy');
 });
