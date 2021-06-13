@@ -21,6 +21,10 @@ class ProductController extends Controller
 
         $categories = Category::orderBy('name')->get();
 
-        return view('user.product.index', compact('products', 'categories'));
+        return view('user.product.index', compact('products', 'category', 'categories'));
+    }
+
+    public function show(Product $product) {
+        return view('user.product.detail', compact('product'));
     }
 }

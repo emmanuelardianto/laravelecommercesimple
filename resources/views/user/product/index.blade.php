@@ -10,7 +10,7 @@
         <h5 class="mb-3">Categories</h5>
         <div class="list-group">
             @foreach($categories as $item)
-            <a href="{{ route('user.product.byCategory', $item) }}" class="list-group-item list-group-item-action" aria-current="true">{{ $item->name }}</a>
+            <a href="{{ route('user.product.byCategory', $item) }}" class="list-group-item list-group-item-action {{ isset($category) && $category == $item ? 'active' : '' }}" aria-current="true">{{ $item->name }}</a>
             @endforeach
         </div>
     </div>
@@ -19,7 +19,9 @@
             @foreach($products as $item)
             <div class="col-md-4 col-sm-6 col-12 mb-4">
                 <div class="card">
-                    <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
+                    <a href="{{ route('user.product.detail', $item) }}">
+                        <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title" style="height: 50px; overflow: hidden;">{{ $item->name }}</h5>
                         <p class="card-text">{{ $item->price_with_currency }}</p>

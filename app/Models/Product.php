@@ -33,4 +33,12 @@ class Product extends Model
     public function getPriceWithCurrencyAttribute() {
         return '$ '.$this->price;
     }
+
+    public function getRelatedAttribute() {
+        return self::where('category_id', $this->category_id)->where('status', 1)->take(6)->get();
+    }
+
+    public function getCategoryAttribute() {
+        return \App\Models\Category::where('id', $this->category_id)->first();
+    }
 }

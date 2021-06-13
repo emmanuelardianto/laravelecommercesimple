@@ -44,5 +44,6 @@ Route::group([
     'as' => 'user.'
 ],function () {
     Route::get('/product', 'ProductController@index')->name('product');
-    Route::get('/product/{category}', 'ProductController@byCategory')->name('product.byCategory');
+    Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
+    Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
 });
