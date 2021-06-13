@@ -47,3 +47,6 @@ Route::group([
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
