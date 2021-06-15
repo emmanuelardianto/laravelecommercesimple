@@ -36,6 +36,14 @@ Route::group([
     Route::get('/product/{product}/edit', 'ProductController@edit')->name('product.edit');
     Route::post('/product/{product}/edit', 'ProductController@store')->name('product.update');
     Route::post('/product/{product}/destroy', 'ProductController@destroy')->name('product.destroy');
+
+    Route::get('/user', 'UserController@index')->name('user');
+    Route::get('/user/create', 'UserController@create')->name('user.create');
+    Route::post('/user/create', 'UserController@store')->name('user.store');
+    Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
+    Route::post('/user/{user}/edit', 'UserController@store')->name('user.update');
+    Route::post('/user/{user}/destroy', 'UserController@destroy')->name('user.destroy');
+    
 });
 
 Route::group([
