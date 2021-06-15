@@ -21,7 +21,8 @@ Route::get('/', function () {
 Route::group([
         'prefix' => 'admin',
         'namespace' => 'App\Http\Controllers\Admin',
-        'as' => 'admin.'
+        'as' => 'admin.',
+        'middleware' => ['auth', 'admin']
     ],function () {
     Route::get('/category', 'CategoryController@index')->name('category');
     Route::get('/category/create', 'CategoryController@create')->name('category.create');
