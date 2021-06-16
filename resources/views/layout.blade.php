@@ -23,9 +23,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.product') }}">User Product</a>
                 </li>
+                @if(Auth::check() && Auth::user()->is_admin)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin ({{ Auth::check() ? Auth::user()->name : '' }})
+                        Admin ({{ Auth::user()->name }})
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('admin.category') }}">Category</a></li>
@@ -43,6 +44,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" name="search" value="{{ !empty($search) ? $search : '' }}" placeholder="Search" aria-label="Search">
@@ -52,6 +54,9 @@
         </div>
     </nav>
     <!-- navbar end -->
+    <div class="container-fluid mb-5">
+        @yield('banner')
+    </div>
     <div class="container mb-5">
         @yield('content')
     </div>
