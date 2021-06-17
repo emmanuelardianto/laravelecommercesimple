@@ -53,6 +53,9 @@ Route::group([
     Route::get('/product', 'ProductController@index')->name('product');
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
+
+    Route::post('/cart/add', 'TransactionController@add')->name('cart.add');
+    Route::post('/cart/', 'TransactionController@index')->name('cart');
 });
 Auth::routes();
 
