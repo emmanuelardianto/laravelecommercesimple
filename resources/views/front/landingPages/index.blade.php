@@ -32,7 +32,7 @@
     @foreach($products as $item)
         <div class="col-lg-2 col-md-3 col-6 mb-3">
             <div class="card">
-                <a href="{{ route('user.product.detail', $item) }}">
+                <a href="{{ route('front.product.detail', $item) }}">
                     <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
                 </a>
                 <div class="card-body">

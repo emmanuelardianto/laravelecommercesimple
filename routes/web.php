@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\User\LandingPageController@index');
+Route::get('/', 'App\Http\Controllers\Front\LandingPageController@index');
 
 
 Route::group([
@@ -37,18 +37,18 @@ Route::group([
     Route::post('/product/{product}/destroy', 'ProductController@destroy')->name('product.destroy');
 
     Route::get('/user', 'UserController@index')->name('user');
-    Route::get('/user/create', 'UserController@create')->name('user.create');
-    Route::post('/user/create', 'UserController@store')->name('user.store');
-    Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
-    Route::post('/user/{user}/edit', 'UserController@store')->name('user.update');
-    Route::post('/user/{user}/destroy', 'UserController@destroy')->name('user.destroy');
+    Route::get('/user/create', 'UserController@create')->name('front.create');
+    Route::post('/user/create', 'UserController@store')->name('front.store');
+    Route::get('/user/{user}/edit', 'UserController@edit')->name('front.edit');
+    Route::post('/user/{user}/edit', 'UserController@store')->name('front.update');
+    Route::post('/user/{user}/destroy', 'UserController@destroy')->name('front.destroy');
     
 });
 
 Route::group([
     'prefix' => '',
-    'namespace' => 'App\Http\Controllers\User',
-    'as' => 'user.'
+    'namespace' => 'App\Http\Controllers\Front',
+    'as' => 'front.'
 ],function () {
     Route::get('/product', 'ProductController@index')->name('product');
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
@@ -56,6 +56,11 @@ Route::group([
 
     Route::post('/cart/add', 'TransactionController@add')->name('cart.add');
     Route::post('/cart/', 'TransactionController@index')->name('cart');
+
+    Route::get('/account', 'UserController@index')->name('user');
+    Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
+    Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
+    Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
 });
 Auth::routes();
 

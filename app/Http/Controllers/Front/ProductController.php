@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class ProductController extends Controller
         $products = Product::where('status', 1)->paginate(24);
         $categories = Category::orderBy('name')->get();
 
-        return view('user.product.index', compact('products', 'categories'));
+        return view('front.product.index', compact('products', 'categories'));
     }
 
     public function byCategory(Request $request, Category $category) {
@@ -21,10 +21,10 @@ class ProductController extends Controller
 
         $categories = Category::orderBy('name')->get();
 
-        return view('user.product.index', compact('products', 'category', 'categories'));
+        return view('front.product.index', compact('products', 'category', 'categories'));
     }
 
     public function show(Product $product) {
-        return view('user.product.detail', compact('product'));
+        return view('front.product.detail', compact('product'));
     }
 }
