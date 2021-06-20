@@ -62,6 +62,21 @@ Route::group([
     Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
     Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
 });
+
+Route::group([
+    'prefix' => '',
+    'namespace' => 'App\Http\Controllers\Front',
+    'as' => 'front.',
+    'middleware' => ['auth']
+],function () {
+
+    Route::get('/account', 'UserController@index')->name('user');
+    Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
+    Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
+    Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
+});
+
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
