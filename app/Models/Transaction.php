@@ -40,22 +40,31 @@ class Transaction extends Model
     const COD = 'COD';
 
     public static function addToCart(Product $product) {
-        $transactionCode = cookie('transaction_code');
+        // $transactionCode = '';
         $transaction = null;
-        if(empty($transactionCode)) {
-            $transaction = self::where('status', self::CART)->orderBy('updated_at', 'desc')->first();
-            if(is_null($$transaction)) {
-                $transactionCode = Str::uuid();
-            } else {
-                $cookie = cookie('transaction_code', $transactionCode, 1 * 60 * 24 * 7);
-            }
-        }
+        // if(empty($transactionCode)) {
+        //     $transaction = self::where('status', self::CART)->orderBy('updated_at', 'desc')->first();
+        //     if(is_null($transaction)) {
+        //         $transactionCode = Str::random(11);
+        //     } else {
+        //         $cookie = cookie('transaction_code', $transactionCode, 1 * 60 * 24 * 7);
+        //     }
+        // }
         
         $user = Auth::check() ? Auth::user() : null;
+        if(!is_null($user)) {
+            $transaction = self::where('user_id', $user->id)->where('status', self::CART)->orderBy('updated_at', 'desc')->first();
+            if(!is_null($transaction))
+                $transactionCode = $transaction->code;
+            else
+                $transactionCode = Str::random(11);
+        } else {
+            $transactionCode = Str::random(11);
+        }
         if(is_null($transaction)) {
             $transaction = self::create([
                 'code' => $transactionCode,
-                'user_id' => is_null($user) ? null : $user->name,
+                'user_id' => is_null($user) ? null : $user->id,
                 'email' => is_null($user) ? null : $user->email,
                 'payment' => self::DEBIT,
                 'status' => self::CART
@@ -76,5 +85,9 @@ class Transaction extends Model
             $transactionItem->qty += 1;
             $transactionItem->save();
         }
+    }
+
+    public function getItemsAttribute() {
+        return TransactionItem::where('transaction_id', $this->id)->get();
     }
 }

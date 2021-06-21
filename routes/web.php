@@ -54,8 +54,8 @@ Route::group([
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
 
-    Route::post('/cart/add', 'TransactionController@add')->name('cart.add');
-    Route::post('/cart/', 'TransactionController@index')->name('cart');
+    Route::post('/cart/add/{product}', 'TransactionController@addToCart')->name('transaction.addToCart');
+    Route::get('/cart/', 'TransactionController@index')->name('transaction.cart');
 
     Route::get('/account', 'UserController@index')->name('user');
     Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');

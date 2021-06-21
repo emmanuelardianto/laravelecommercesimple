@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -14,7 +17,16 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transaction = null;
+        if(Auth::check()) {
+            $transaction = Auth::user()->cart;
+        }
+        return view('front.transaction.cart', compact('transaction'));
+    }
+
+    public function addToCart(Product $product) {
+        Transaction::addToCart($product);
+        return redirect()->route('front.transaction.cart')->with('success', 'Product added to cart.');
     }
 
     /**

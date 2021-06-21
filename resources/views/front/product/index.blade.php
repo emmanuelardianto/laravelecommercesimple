@@ -20,7 +20,11 @@
                     <div class="card-body">
                         <h5 class="card-title" style="height: 50px; overflow: hidden;">{{ $item->name }}</h5>
                         <p class="card-text">{{ $item->price_with_currency }}</p>
-                        <a href="#" class="btn btn-primary">Buy Now</a>
+                        <button class="btn btn-primary" type="button" onclick="event.preventDefault();
+                                                    document.getElementById('addcart-form{{ $item->id }}').submit();">Buy Now</button>
+                        <form id="addcart-form{{ $item->id }}" action="{{ route('front.transaction.addToCart', $item) }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>

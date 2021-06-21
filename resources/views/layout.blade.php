@@ -20,18 +20,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                @foreach(\App\Models\Category::orderBy('name')->take(5)->get() as $category)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('front.product') }}">User Product</a>
+                    <a class="nav-link" href="{{ route('front.product.byCategory', $category) }}">{{ $category->name }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('front.user') }}">My Page</a>
-                </li>
+                @endforeach
                 @if(Auth::check() && Auth::user()->is_admin)
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin ({{ Auth::user()->name }})
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
                         <li><a class="dropdown-item" href="{{ route('admin.category') }}">Category</a></li>
                         <li><a class="dropdown-item"  href="{{ route('admin.product') }}">Product</a></li>
                         <li><a class="dropdown-item"  href="{{ route('admin.user') }}">User</a></li>
@@ -49,10 +48,41 @@
                 </li>
                 @endif
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" name="search" value="{{ !empty($search) ? $search : '' }}" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <form class="d-flex">
+                        <input class="form-control" type="search" name="search" value="{{ !empty($search) ? $search : '' }}" placeholder="Search" aria-label="Search">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('front.transaction.cart') }}">Cart</a>
+                </li>
+                @if(Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('front.user') }}">My Account</a></li>
+                        <li><a class="dropdown-item"  href="{{ route('front.user.wishlist') }}">Wishlist</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                </li>
+                @endif
+            </ul>
             </div>
         </div>
     </nav>
