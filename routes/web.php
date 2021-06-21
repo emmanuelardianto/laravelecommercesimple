@@ -55,6 +55,7 @@ Route::group([
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
 
     Route::post('/cart/add/{product}', 'TransactionController@addToCart')->name('transaction.addToCart');
+    Route::post('/cart/remove/{transactionItem}', 'TransactionController@removeFromCart')->name('transaction.removeFromCart');
     Route::get('/cart/', 'TransactionController@index')->name('transaction.cart');
 
     Route::get('/account', 'UserController@index')->name('user');

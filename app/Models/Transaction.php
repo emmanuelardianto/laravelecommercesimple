@@ -87,7 +87,23 @@ class Transaction extends Model
         }
     }
 
+    public static function removeFromCart(TransactionItem $transactionItem) {
+        $transactionItem->delete();
+    }
+
     public function getItemsAttribute() {
         return TransactionItem::where('transaction_id', $this->id)->get();
+    }
+
+    public function getSubtotalAttribute() {
+        $subtotals = collect($this->items)->map(function($item) {
+            return $item->price * $item->qty;
+        });
+
+        return $subtotals->sum();
+    }
+
+    public function getQtyAttribute() {
+        return collect($this->items)->sum('qty');
     }
 }

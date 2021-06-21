@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
+use App\Models\TransactionItem;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,11 @@ class TransactionController extends Controller
     public function addToCart(Product $product) {
         Transaction::addToCart($product);
         return redirect()->route('front.transaction.cart')->with('success', 'Product added to cart.');
+    }
+
+    public function removeFromCart(TransactionItem $transactionItem) {
+        Transaction::removeFromCart($transactionItem);
+        return redirect()->route('front.transaction.cart')->with('success', 'Product removed from cart.');
     }
 
     /**

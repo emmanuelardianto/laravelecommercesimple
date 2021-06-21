@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
 
 class TransactionItem extends Model
 {
@@ -19,4 +20,11 @@ class TransactionItem extends Model
         'weight',
         'shipping_cost'
     ];
+
+
+    public function getProductAttribute() {
+        return Product::where('id', $this->product_id)->first();
+    }
+
+
 }
