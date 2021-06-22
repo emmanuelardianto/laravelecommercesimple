@@ -9,7 +9,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="80%">Name</th>
+                        <th width="80%">Product</th>
                         <th class="text-center" width="10%">Qty</th>
                         <th class="text-center" width="10%">Price</th>
                     </tr>

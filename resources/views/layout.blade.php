@@ -48,7 +48,7 @@
                 </li>
                 @endif
             </ul>
-            <ul class="navbar-nav mb-2 mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <form class="d-flex">
                         <input class="form-control" type="search" name="search" value="{{ !empty($search) ? $search : '' }}" placeholder="Search" aria-label="Search">

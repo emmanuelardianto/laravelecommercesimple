@@ -65,16 +65,23 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => '',
+    'prefix' => '/account',
     'namespace' => 'App\Http\Controllers\Front',
     'as' => 'front.',
     'middleware' => ['auth']
 ],function () {
 
-    Route::get('/account', 'UserController@index')->name('user');
-    Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
-    Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
-    Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
+    Route::get('/', 'UserController@index')->name('user');
+    Route::get('/wishlist', 'UserController@wishlist')->name('user.wishlist');
+    Route::post('/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
+    Route::post('/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
+
+    Route::get('/address', 'AddressController@index')->name('user.address');
+    Route::get('/address/create', 'AddressController@create')->name('user.address.create');
+    Route::post('/address/create', 'AddressController@store')->name('user.address.store');
+    Route::get('/address/{address}/edit', 'AddressController@edit')->name('user.address.edit');
+    Route::post('/address/{address}/edit', 'AddressController@store')->name('user.address.update');
+    Route::post('/address/{address}/destroy', 'AddressController@destroy')->name('user.address.destroy');
 });
 
 
