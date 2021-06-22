@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AddressController extends Controller
 {
@@ -15,13 +16,8 @@ class AddressController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('search');
-        $addresses = Address::orderBy('name');
-        if(!is_null($search)) {
-            $addresses = $addresses->where('name', 'like', '%'.$search.'%');
-        }
-        $addresses = $addresses->paginate(20);
-        return view('front.address.index', compact('addresses', 'search'));
+        $addresses = Address::where('user_id', Auth::user()->id)->orderBy('default', 'desc')->get();
+        return view('front.address.index', compact('addresses'));
     }
 
     /**
@@ -43,20 +39,27 @@ class AddressController extends Controller
     public function store(Request $request, Address $address)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|max:100',
+            'line1' => 'required|max:500',
+            'line1' => 'max:500',
+            'country' => 'required|max:100',
+            'city' => 'required|max:100',
+            'zip_code' => 'required|max:10',
+            'phone' => 'required|max:15'
         ]);
 
         if(is_null($address)) {
             $address = new Address();
         }
 
-        $address = $address->fill([
-            'name' => $request->get('name'),
-            'slug' => \Str::slug($request->get('name'))
-        ]);
-
+        $address = $address->fill($request->all());
+        $address->user_id = Auth::user()->id;
+        $address->default = $request->has('default');
         $address->save();
-        return redirect()->route('front.address.edit', compact('address'))->with('success', 'Data saved.');
+        Address::where('user_id', Auth::user()->id)->where('id', '!=', $address->id)->update([
+            'default' => false
+        ]);
+        return redirect()->route('front.user.address', compact('address'))->with('success', 'Data saved.');
     }
 
     /**
@@ -102,6 +105,6 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
-        return redirect()->route('front.address')->with('success', 'Data deleted.');
+        return redirect()->route('front.user.address')->with('success', 'Data deleted.');
     }
 }

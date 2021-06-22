@@ -5,6 +5,7 @@
         @include('front.user.nav', ['header' => 'Address'])
     </div>
     <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12">
+        <h4 class="mb-4">{{ isset($address) ? 'Update' : 'New' }} Address</h4>
         <form method="POST" action="{{ !isset($address) ? route('front.user.address.store') : route('front.user.address.update', $address) }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="mb-3">
@@ -35,6 +36,12 @@
                 <label for="phone" class="form-label">Phone</label>
                 <input type="text" class="form-control" name="phone" value="{{ isset($address) ? $address->phone : old('phone') }}" required />
             </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="default" name="default"  {{ isset($address) && $address->default || old('default') ? 'checked' : '' }}>
+                <label class="form-check-label" for="default">
+                    Default
+                </label>
+            </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <a href="{{ route('front.user.address') }}" class="btn btn-secondary">Cancel</a>
             @if(@isset($address))
@@ -48,4 +55,14 @@
         @endif
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $('#deleteBtn').on('click', function(e) {
+        e.preventDefault();
+        if(confirm('Are you sure want to delete this data?'))
+            $('#deleteForm').submit();
+    })
+</script>
 @endsection

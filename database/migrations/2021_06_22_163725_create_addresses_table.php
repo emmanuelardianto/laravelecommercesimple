@@ -16,13 +16,13 @@ class CreateAddressesTable extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('name', 500);
+            $table->string('name', 100);
             $table->string('line1', 500);
             $table->string('line2', 500)->nullable();
-            $table->string('country', 500);
-            $table->string('city', 500);
+            $table->string('country', 100);
+            $table->string('city', 100);
             $table->string('zip_code', 10);
-            $table->string('phone', 500);
+            $table->string('phone', 15);
             $table->boolean('default')->default(false);
             $table->timestamps();
         });
