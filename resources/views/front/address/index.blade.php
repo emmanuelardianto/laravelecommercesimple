@@ -7,7 +7,7 @@
     <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-12">
         <div class="list-group">
             @foreach($addresses as $address)
-            <a href="{{ route('front.user.address.edit', $address) }}" class="list-group-item list-group-item-action" aria-current="true">
+            <a href="{{ route('front.user.address.edit', $address) }}" class="list-group-item list-group-item-action py-3" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ $address->name }}  </h5>
                     <small>{{ $address->default ? 'default' : '' }}</small>

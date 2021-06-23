@@ -20,12 +20,30 @@
         </form>
     </div>
 </div>
-<div class="row">
+<div class="row mb-5">
     <div class="col-12">
         <h2 class="mb-3">Related Product</h2>
     </div>
     @foreach($product->related as $item)
-    <div class="col-md-2 col-sm-3 col-6">
+    <div class="col-md-2 col-sm-3 col-6 mb-3">
+        <div class="card">
+            <a href="{{ route('front.product.detail', $item) }}">
+                <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
+            </a>
+            <div class="card-body">
+                <h5 class="card-title" style="height: 50px; overflow: hidden;">{{ $item->name }}</h5>
+                <p class="card-text">{{ $item->price_with_currency }}</p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-3">Browsing History</h2>
+    </div>
+    @foreach($browsingHistory as $item)
+    <div class="col-md-2 col-sm-3 col-6 mb-3">
         <div class="card">
             <a href="{{ route('front.product.detail', $item) }}">
                 <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
