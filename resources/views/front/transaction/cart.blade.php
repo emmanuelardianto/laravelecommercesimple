@@ -42,6 +42,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="py-3 text-end">
+                <a href="#" class="btn btn-lg btn-primary">Finishing Checkout</a>
+            </div>
         @else
         <p>Shopping cart is empty.</p>
         @endif

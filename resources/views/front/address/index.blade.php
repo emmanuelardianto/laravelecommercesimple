@@ -10,7 +10,7 @@
             <a href="{{ route('front.user.address.edit', $address) }}" class="list-group-item list-group-item-action py-3" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{ $address->name }}  </h5>
-                    <small>{{ $address->default ? 'default' : '' }}</small>
+                    <small>{{ $address->default || $loop->index == 0 ? 'default' : '' }}</small>
                 </div>
                 <small>{{ $address->zip_code }}</small>
                 <p class="mb-1">{{ $address->line1 }}<br />{{ $address->line2 }}</p>
