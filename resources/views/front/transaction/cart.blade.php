@@ -43,7 +43,7 @@
                 </tbody>
             </table>
             <div class="py-3 text-end">
-                <a href="{{ route('front.transaction.selectAddress') }}" class="btn btn-lg btn-primary">Finishing Checkout</a>
+                <a href="{{ route('front.transaction.address') }}" class="btn btn-lg btn-primary">Finishing Checkout</a>
             </div>
         @else
         <p>Shopping cart is empty.</p>

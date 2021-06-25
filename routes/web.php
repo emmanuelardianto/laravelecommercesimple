@@ -60,6 +60,8 @@ Route::group([
     Route::get('/cart/address', 'TransactionController@address')->name('transaction.address');
     Route::post('/cart/address/{address}', 'TransactionController@selectAddress')->name('transaction.selectAddress');
     Route::get('/cart/payment', 'TransactionController@payment')->name('transaction.payment');
+    Route::post('/cart/payment/', 'TransactionController@selectPayment')->name('transaction.selectPayment');
+    Route::get('/cart/finalize', 'TransactionController@finalize')->name('transaction.finalize');
 
     Route::get('/account', 'UserController@index')->name('user');
     Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');

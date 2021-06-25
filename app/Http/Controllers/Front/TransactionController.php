@@ -63,9 +63,29 @@ class TransactionController extends Controller
     }
 
     public function payment() {
-        return view('front.transaction.payment');
+        $payments = config('payment');
+        return view('front.transaction.payment', compact('payments'));
     }
 
+    public function selectPayment(Request $request) {
+        if(!Auth::check())
+            return redirect()->route('login');
+
+        if(is_null(Auth::user()->cart))
+            return redirect()->route('login');
+
+        $cart = Auth::user()->cart;
+
+        $cart->payment = $request->get('payment');
+        $cart->save();
+
+        return redirect()->route('front.transaction.finalize');
+    }
+
+
+    public function finalize() {
+        return view('front.transaction.finalize');
+    }
     /**
      * Show the form for creating a new resource.
      *
