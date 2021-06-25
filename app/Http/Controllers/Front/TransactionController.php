@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\TransactionItem;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -33,6 +34,36 @@ class TransactionController extends Controller
     public function removeFromCart(TransactionItem $transactionItem) {
         Transaction::removeFromCart($transactionItem);
         return redirect()->route('front.transaction.cart')->with('success', 'Product removed from cart.');
+    }
+
+    public function address() {
+        if(!Auth::check())
+            return redirect()->route('login');
+
+        if(is_null(Auth::user()->cart))
+            return redirect()->route('login');
+
+        $addresses = Address::where('user_id', Auth::user()->id)->orderBy('default', 'desc')->get();
+        return view('front.transaction.address', compact('addresses'));
+    }
+
+    public function selectAddress(Address $address) {
+        if(!Auth::check())
+            return redirect()->route('login');
+
+        if(is_null(Auth::user()->cart))
+            return redirect()->route('login');
+
+        $cart = Auth::user()->cart;
+
+        $cart->address = $address->line1;
+        $cart->save();
+
+        return redirect()->route('front.transaction.payment');
+    }
+
+    public function payment() {
+        return view('front.transaction.payment');
     }
 
     /**
