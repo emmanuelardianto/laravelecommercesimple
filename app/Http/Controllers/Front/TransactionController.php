@@ -84,8 +84,37 @@ class TransactionController extends Controller
 
 
     public function finalize() {
-        return view('front.transaction.finalize');
+        if(!Auth::check())
+            return redirect()->route('login');
+
+        if(is_null(Auth::user()->cart))
+            return redirect()->route('login');
+
+        $transaction = Auth::user()->cart;
+
+        return view('front.transaction.finalize', compact('transaction'));
     }
+
+    public function placeOrder(Request $request) {
+        if(!Auth::check())
+            return redirect()->route('login');
+
+        if(is_null(Auth::user()->cart))
+            return redirect()->route('login');
+
+        $transaction = Auth::user()->cart;
+
+        $transaction->status = Transaction::WAITING_FOR_PAYMENT;
+        $transaction->save();
+
+        return redirect()->route('front.transaction.thankYou', $transaction)->with('success', 'Order succesfully placed.');
+    }
+
+    public function thankYou(Transaction $transaction) {
+        return view('front.transaction.thankYou', compact('transaction'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

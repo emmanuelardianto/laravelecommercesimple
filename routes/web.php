@@ -62,6 +62,8 @@ Route::group([
     Route::get('/cart/payment', 'TransactionController@payment')->name('transaction.payment');
     Route::post('/cart/payment/', 'TransactionController@selectPayment')->name('transaction.selectPayment');
     Route::get('/cart/finalize', 'TransactionController@finalize')->name('transaction.finalize');
+    Route::post('/cart/finalize', 'TransactionController@placeOrder')->name('transaction.placeOrder');
+    Route::get('/transaction/{transaction}/thank-you', 'TransactionController@thankYou')->name('transaction.thankYou');
 
     Route::get('/account', 'UserController@index')->name('user');
     Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');

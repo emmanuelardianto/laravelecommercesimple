@@ -4,6 +4,7 @@
     <div class="col-12">
         <h1 class="mb-5">Finalize</h1>
         @include('components.alert')
+        @if(isset($transaction))
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -53,15 +54,6 @@
             {{ $transaction->payment }}
         </div>
     </div>
-    <div class="col-12 text-right">
-        <div class="py-3 text-end">
-            <a href="#" onclick="event.preventDefault();
-                                document.getElementById('placeOrderForm').submit();" class="btn btn-lg btn-primary">Place Order</a>
-            <form id="placeOrderForm" action="{{ route('front.transaction.placeOrder') }}" method="POST" class="d-none">
-                @csrf
-                <input type="hidden" name="transaction_id" value="{{ $transaction->id }}" />
-            </form>
-        </div>
-    </div>
+    @endif
 </div>
 @endsection
