@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Wishlist;
+use App\Models\Transaction;
 use Auth;
 
 class UserController extends Controller
@@ -40,6 +41,16 @@ class UserController extends Controller
         $wishlist->delete();
         
         return redirect()->route('front.user.wishlist')->with('success', 'Product removed from wishlist.');
+    }
+
+    public function transaction() {
+        $transactions = Auth::user()->transactions;
+
+        return view('front.user.transaction', compact('transactions'));
+    }
+
+    public function transactionDetail(Transaction $transaction) {
+        return view('front.user.transactionDetail', compact('transaction'));
     }
 
 }

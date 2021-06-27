@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function getCartAttribute() {
         return Transaction::where('user_id', $this->id)->where('status', Transaction::CART)->orderBy('updated_at', 'desc')->first();
     }
+
+    public function getTransactionsAttribute() {
+        return Transaction::where('user_id', $this->id)->where('status', '!=',Transaction::CART)->orderBy('updated_at', 'desc')->paginate(20);
+    }
 }

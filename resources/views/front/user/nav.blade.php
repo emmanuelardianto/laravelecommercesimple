@@ -11,6 +11,6 @@
         <a class="nav-link" href="{{ route('front.user.address') }}">Address</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link" href="{{ route('front.user.transaction') }}">Transactions</a>
     </li>
 </ul>

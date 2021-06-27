@@ -23,6 +23,10 @@ class Transaction extends Model
         'status'
     ];
 
+    public function getRouteKeyName() {
+        return 'code';
+    }
+
     // status
     const CART = 'CART';
     const WAITING_FOR_PAYMENT = 'WAITING_FOR_PAYMENT';
@@ -38,6 +42,9 @@ class Transaction extends Model
     const DEBIT = 'DEBIT';
     const CREDIT = 'CREDIT';
     const COD = 'COD';
+
+    // currency
+    const CURRENCY = '$';
 
     public static function addToCart(Product $product) {
         // $transactionCode = '';
@@ -105,5 +112,13 @@ class Transaction extends Model
 
     public function getQtyAttribute() {
         return collect($this->items)->sum('qty');
+    }
+
+    public function getOrderPlacedAttribute() {
+        return \Carbon\Carbon::parse($this->updated_at)->format('d M yy H:i');
+    }
+
+    public function getFormattedSubtotalAttribute() {
+        return self::CURRENCY.number_format($this->subtotal, 2);
     }
 }

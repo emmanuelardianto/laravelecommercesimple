@@ -69,6 +69,8 @@ Route::group([
     Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
     Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
     Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
+    Route::get('/account/transaction', 'UserController@transaction')->name('user.transaction');
+    Route::get('/account/transaction/{transaction}', 'UserController@transactionDetail')->name('user.transactionDetail');
 });
 
 Route::group([

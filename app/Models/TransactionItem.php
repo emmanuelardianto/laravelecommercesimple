@@ -20,11 +20,19 @@ class TransactionItem extends Model
         'weight',
         'shipping_cost'
     ];
-
+    
+    // currency
+    const CURRENCY = '$';
 
     public function getProductAttribute() {
         return Product::where('id', $this->product_id)->first();
     }
 
+    public function getFormattedPriceAttribute() {
+        return self::CURRENCY.number_format($this->price, 2);
+    }
 
+    public function getFormattedSubtotal() {
+        return self::CURRENCY.number_format($this->price * $this->qty, 2);
+    }
 }
