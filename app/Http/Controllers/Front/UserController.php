@@ -43,10 +43,15 @@ class UserController extends Controller
         return redirect()->route('front.user.wishlist')->with('success', 'Product removed from wishlist.');
     }
 
-    public function transaction() {
-        $transactions = Auth::user()->transactions;
+    public function transaction(Request $request) {
+        $status = $request->get('status');
+        $transactions = Transaction::where('user_id', Auth::user()->id);
+        if(!is_null($status))
+            $transactions = $transactions->where('status', $status);
 
-        return view('front.user.transaction', compact('transactions'));
+        $transactions = $transactions->orderBy('updated_at', 'desc')->paginate(10);
+
+        return view('front.user.transaction', compact('transactions', 'status'));
     }
 
     public function transactionDetail(Transaction $transaction) {
