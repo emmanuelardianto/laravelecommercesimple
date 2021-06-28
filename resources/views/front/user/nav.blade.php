@@ -13,4 +13,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('front.user.transaction') }}">Transactions</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('front.user.password') }}">Change Password</a>
+    </li>
 </ul>

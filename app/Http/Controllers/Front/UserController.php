@@ -7,9 +7,22 @@ use Illuminate\Http\Request;
 use App\Models\Wishlist;
 use App\Models\Transaction;
 use Auth;
+use Hash;
+use Illuminate\Contracts\Auth\Guard;
 
 class UserController extends Controller
 {
+    protected $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+
+            return $next($request);
+        });
+    }
+
     public function index() {
         return view('front.user.index');
     }
@@ -23,9 +36,6 @@ class UserController extends Controller
         $request->validate([
             'product_id' => 'required'
         ]);
-
-        if(!Auth::check())
-            return redirect()->route('login');
 
         if(Wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->get('product_id'))->count() == 0) {
             Wishlist::create([
@@ -56,6 +66,25 @@ class UserController extends Controller
 
     public function transactionDetail(Transaction $transaction) {
         return view('front.user.transactionDetail', compact('transaction'));
+    }
+
+    public function password() {
+        return view('front.user.changePassword');
+    }
+
+    public function passwordUpdate(Request $request) {
+        $request->validate([
+            'oldPassword' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        if(!Hash::check($request->get('oldPassword'), $this->user->password))
+            return redirect()->back()->with('error', 'Password doesn\'t match.');
+
+        $this->user->password = Hash::make($request->get('password'));
+        $this->user->save();
+
+        return redirect()->route('front.user.password')->with('success', 'Succesfully change your password.');
     }
 
 }

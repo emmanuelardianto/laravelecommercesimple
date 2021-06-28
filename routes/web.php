@@ -71,6 +71,8 @@ Route::group([
     Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
     Route::get('/account/transaction', 'UserController@transaction')->name('user.transaction');
     Route::get('/account/transaction/{transaction}', 'UserController@transactionDetail')->name('user.transactionDetail');
+    Route::get('/account/security', 'UserController@password')->name('user.password');
+    Route::post('/account/security', 'UserController@passwordUpdate')->name('user.password.update');
 });
 
 Route::group([
