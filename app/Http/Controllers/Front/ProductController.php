@@ -18,11 +18,17 @@ class ProductController extends Controller
     }
 
     public function byCategory(Request $request, Category $category) {
-        $products = $category->products;
+        $products = Product::where('category_id', $category->id);
+
+        $search = $request->get('search');
+        if(!empty($search))
+            $products = $products->where('name', 'like', '%'.$search.'%');
+
+        $products = $products->paginate(24);
 
         $categories = Category::orderBy('name')->get();
 
-        return view('front.product.index', compact('products', 'category', 'categories'));
+        return view('front.product.index', compact('products', 'category', 'categories', 'search'));
     }
 
     public function show(Product $product) {

@@ -11,7 +11,11 @@
         <h1 class="my-3">{{ $product->name }}</h1>
         <div class="text-gray fs-3 mb-4">{{ $product->price_with_currency }}</div>
         <p>{{ $product->description }}</p>
-        <button class="btn btn-primary btn-lg">Buy Now</button>
+        <button class="btn btn-primary btn-lg" type="button" onclick="event.preventDefault();
+                                    document.getElementById('addcart-form{{ $product->id }}').submit();">Buy Now</button>
+        <form id="addcart-form{{ $product->id }}" action="{{ route('front.transaction.addToCart', $product) }}" method="POST" class="d-none">
+            @csrf
+        </form>
         <button class="btn btn-secondary btn-lg" type="button" onclick="event.preventDefault();
                                     document.getElementById('wishlist-form').submit();">Add to Wishlist</button>
         <form id="wishlist-form" action="{{ route('front.user.wishlist.add') }}" method="POST" class="d-none">

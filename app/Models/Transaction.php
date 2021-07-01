@@ -48,7 +48,7 @@ class Transaction extends Model
 
     public static function addToCart(Product $product) {
         // $transactionCode = '';
-        $transaction = null;
+        // $transaction = null;
         // if(empty($transactionCode)) {
         //     $transaction = self::where('status', self::CART)->orderBy('updated_at', 'desc')->first();
         //     if(is_null($transaction)) {

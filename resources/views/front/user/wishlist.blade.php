@@ -10,7 +10,7 @@
     @foreach($wishlists as $item)
     <div class="col-md-3 col-sm-4 col-6 mb-4">
         <div class="card">
-            <a href="{{ route('front.product.detail', $item) }}">
+            <a href="{{ route('front.product.detail', $item->product) }}">
                 <img src="{{ $item->product->image_url }}" class="card-img-top" alt="{{ $item->product->name }}" title="{{ $item->product->name }}" />
             </a>
             <div class="card-body">
