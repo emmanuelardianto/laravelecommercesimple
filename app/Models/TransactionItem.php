@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product;
+use App\Models\Transaction;
 
 class TransactionItem extends Model
 {
@@ -34,5 +35,9 @@ class TransactionItem extends Model
 
     public function getFormattedSubtotal() {
         return self::CURRENCY.number_format($this->price * $this->qty, 2);
+    }
+
+    public function getTransactionAttribute() {
+        return Transaction::where('id', $this->transaction_id)->first();
     }
 }

@@ -54,17 +54,6 @@ Route::group([
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
 
-    Route::post('/cart/add/{product}', 'TransactionController@addToCart')->name('transaction.addToCart');
-    Route::post('/cart/remove/{transactionItem}', 'TransactionController@removeFromCart')->name('transaction.removeFromCart');
-    Route::get('/cart/', 'TransactionController@index')->name('transaction.cart');
-    Route::get('/cart/address', 'TransactionController@address')->name('transaction.address');
-    Route::post('/cart/address/{address}', 'TransactionController@selectAddress')->name('transaction.selectAddress');
-    Route::get('/cart/payment', 'TransactionController@payment')->name('transaction.payment');
-    Route::post('/cart/payment/', 'TransactionController@selectPayment')->name('transaction.selectPayment');
-    Route::get('/cart/finalize', 'TransactionController@finalize')->name('transaction.finalize');
-    Route::post('/cart/finalize', 'TransactionController@placeOrder')->name('transaction.placeOrder');
-    Route::get('/transaction/{transaction}/thank-you', 'TransactionController@thankYou')->name('transaction.thankYou');
-
     Route::get('/account', 'UserController@index')->name('user');
     Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
     Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
@@ -93,6 +82,17 @@ Route::group([
     Route::get('/address/{address}/edit', 'AddressController@edit')->name('user.address.edit');
     Route::post('/address/{address}/edit', 'AddressController@store')->name('user.address.update');
     Route::post('/address/{address}/destroy', 'AddressController@destroy')->name('user.address.destroy');
+
+    Route::post('/cart/add/{product}', 'TransactionController@addToCart')->name('transaction.addToCart');
+    Route::post('/cart/remove/{transactionItem}', 'TransactionController@removeFromCart')->name('transaction.removeFromCart');
+    Route::get('/cart/', 'TransactionController@index')->name('transaction.cart');
+    Route::get('/cart/address', 'TransactionController@address')->name('transaction.address');
+    Route::post('/cart/address/{address}', 'TransactionController@selectAddress')->name('transaction.selectAddress');
+    Route::get('/cart/payment', 'TransactionController@payment')->name('transaction.payment');
+    Route::post('/cart/payment/', 'TransactionController@selectPayment')->name('transaction.selectPayment');
+    Route::get('/cart/finalize', 'TransactionController@finalize')->name('transaction.finalize');
+    Route::post('/cart/finalize', 'TransactionController@placeOrder')->name('transaction.placeOrder');
+    Route::get('/transaction/{transaction}/thank-you', 'TransactionController@thankYou')->name('transaction.thankYou');
 });
 
 

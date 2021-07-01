@@ -96,6 +96,8 @@ class Transaction extends Model
 
     public static function removeFromCart(TransactionItem $transactionItem) {
         $transactionItem->delete();
+        if($transactionItem->transaction->items->count() == 0) 
+            $transactionItem->transaction->delete();
     }
 
     public function getItemsAttribute() {

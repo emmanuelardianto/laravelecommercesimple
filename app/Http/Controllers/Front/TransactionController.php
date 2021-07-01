@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Address;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Guard;
 
 class TransactionController extends Controller
 {
@@ -17,12 +18,20 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $user;
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+
+            return $next($request);
+        });
+    }
+
     public function index()
     {
-        $transaction = null;
-        if(Auth::check()) {
-            $transaction = Auth::user()->cart;
-        }
+        $transaction = $this->user->cart;
         return view('front.transaction.cart', compact('transaction'));
     }
 
@@ -37,24 +46,13 @@ class TransactionController extends Controller
     }
 
     public function address() {
-        if(!Auth::check())
-            return redirect()->route('login');
 
-        if(is_null(Auth::user()->cart))
-            return redirect()->route('login');
-
-        $addresses = Address::where('user_id', Auth::user()->id)->orderBy('default', 'desc')->get();
+        $addresses = Address::where('user_id', $this->user->id)->orderBy('default', 'desc')->get();
         return view('front.transaction.address', compact('addresses'));
     }
 
     public function selectAddress(Address $address) {
-        if(!Auth::check())
-            return redirect()->route('login');
-
-        if(is_null(Auth::user()->cart))
-            return redirect()->route('login');
-
-        $cart = Auth::user()->cart;
+        $cart = $this->user->cart;
 
         $cart->address = $address->line1;
         $cart->save();
@@ -68,13 +66,7 @@ class TransactionController extends Controller
     }
 
     public function selectPayment(Request $request) {
-        if(!Auth::check())
-            return redirect()->route('login');
-
-        if(is_null(Auth::user()->cart))
-            return redirect()->route('login');
-
-        $cart = Auth::user()->cart;
+        $cart = $this->user->cart;
 
         $cart->payment = $request->get('payment');
         $cart->save();
@@ -84,25 +76,13 @@ class TransactionController extends Controller
 
 
     public function finalize() {
-        if(!Auth::check())
-            return redirect()->route('login');
-
-        if(is_null(Auth::user()->cart))
-            return redirect()->route('login');
-
-        $transaction = Auth::user()->cart;
+        $transaction = $this->user->cart;
 
         return view('front.transaction.finalize', compact('transaction'));
     }
 
     public function placeOrder(Request $request) {
-        if(!Auth::check())
-            return redirect()->route('login');
-
-        if(is_null(Auth::user()->cart))
-            return redirect()->route('login');
-
-        $transaction = Auth::user()->cart;
+        $transaction = $this->user->cart;
 
         $transaction->status = Transaction::WAITING_FOR_PAYMENT;
         $transaction->save();
@@ -112,72 +92,5 @@ class TransactionController extends Controller
 
     public function thankYou(Transaction $transaction) {
         return view('front.transaction.thankYou', compact('transaction'));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
     }
 }
