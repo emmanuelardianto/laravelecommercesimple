@@ -24,11 +24,32 @@ class ProductController extends Controller
         if(!empty($search))
             $products = $products->where('name', 'like', '%'.$search.'%');
 
+        $order = $request->get('order');
+        switch ($order) {
+            case 'priceasc':
+                $products = $products->orderBy('price');
+                break;
+            case 'pricedesc':
+                $products = $products->orderBy('price', 'desc');
+                break;
+            case 'nameasc':
+                $products = $products->orderBy('name');
+                break;
+            case 'namedesc':
+                $products = $products->orderBy('name', 'desc');
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+            
+
         $products = $products->paginate(24);
 
         $categories = Category::orderBy('name')->get();
 
-        return view('front.product.index', compact('products', 'category', 'categories', 'search'));
+        return view('front.product.index', compact('products', 'category', 'categories', 'search', 'order'));
     }
 
     public function show(Product $product) {
