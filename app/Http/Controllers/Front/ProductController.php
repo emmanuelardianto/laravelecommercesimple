@@ -11,7 +11,11 @@ use Cookie;
 class ProductController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::where('status', 1)->paginate(24);
+        $products = Product::where('status', 1);
+        $order = $request->get('order');
+        
+        $products = $this->productResultOrder($products, $order);
+        $products = $products->paginate(24);
         $categories = Category::orderBy('name')->get();
 
         return view('front.product.index', compact('products', 'categories'));
@@ -25,6 +29,17 @@ class ProductController extends Controller
             $products = $products->where('name', 'like', '%'.$search.'%');
 
         $order = $request->get('order');
+        
+        $products = $this->productResultOrder($products, $order);
+
+        $products = $products->paginate(24);
+
+        $categories = Category::orderBy('name')->get();
+
+        return view('front.product.index', compact('products', 'category', 'categories', 'search', 'order'));
+    }
+
+    public function productResultOrder($products, $order) {
         switch ($order) {
             case 'priceasc':
                 $products = $products->orderBy('price');
@@ -43,13 +58,7 @@ class ProductController extends Controller
                 # code...
                 break;
         }
-            
-
-        $products = $products->paginate(24);
-
-        $categories = Category::orderBy('name')->get();
-
-        return view('front.product.index', compact('products', 'category', 'categories', 'search', 'order'));
+        return $products;
     }
 
     public function show(Product $product) {
