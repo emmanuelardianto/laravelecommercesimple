@@ -34,6 +34,7 @@
                         <li><a class="dropdown-item" href="{{ route('admin.category') }}">Category</a></li>
                         <li><a class="dropdown-item"  href="{{ route('admin.product') }}">Product</a></li>
                         <li><a class="dropdown-item"  href="{{ route('admin.user') }}">User</a></li>
+                        <li><a class="dropdown-item"  href="{{ route('admin.transaction') }}">Transaction</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"

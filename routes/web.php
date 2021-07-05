@@ -43,6 +43,7 @@ Route::group([
     Route::post('/user/{user}/edit', 'UserController@store')->name('front.update');
     Route::post('/user/{user}/destroy', 'UserController@destroy')->name('front.destroy');
     
+    Route::get('/transaction', 'TransactionController@index')->name('transaction');
 });
 
 Route::group([
