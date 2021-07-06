@@ -44,6 +44,7 @@ Route::group([
     Route::post('/user/{user}/destroy', 'UserController@destroy')->name('front.destroy');
     
     Route::get('/transaction', 'TransactionController@index')->name('transaction');
+    Route::get('/transaction/{transaction}', 'TransactionController@detail')->name('transaction.detail');
 });
 
 Route::group([

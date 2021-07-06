@@ -123,4 +123,8 @@ class Transaction extends Model
     public function getFormattedSubtotalAttribute() {
         return self::CURRENCY.number_format($this->subtotal, 2);
     }
+
+    public function getTransactionSummaryAttribute() {
+        return $this->items->first()->name;
+    }
 }

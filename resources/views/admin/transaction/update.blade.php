@@ -1,36 +1,47 @@
 @extends('layout')
 @section('content')
-<div class="col-12">
-    <h1 class="my-3">
-        Categories {{ isset($category) ? 'Update - '.$category->name : 'Create' }}
-    </h1>
-    @include('components.alert')
-    <form method="POST" action="{{ !isset($category) ? route('admin.category.store') : route('admin.category.update', $category) }}" enctype="multipart/form-data">
-        {{ csrf_field() }}
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{ isset($category) ? $category->name : old('name') }}" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="{{ route('admin.category') }}" class="btn btn-secondary">Cancel</a>
-        @if(@isset($category))
-        <button class="btn btn-danger" type="button" id="deleteBtn">Delete</button>
-        @endif
-    </form>
-    @if(@isset($category))
-    <form method="POST" id="deleteForm" action="{{ route('admin.category.destroy', $category) }}" enctype="multipart/form-data">
-        {{ csrf_field() }}
-    </form>
-    @endif
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ route('admin.transaction') }}" class="py-3 d-block">Back to transaction list</a>
+        <h1 class="mb-5">Order #{{ $transaction->code }}</h1>
+        @include('components.alert')
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th width="80%">Product</th>
+                    <th class="text-center" width="10%">Qty</th>
+                    <th class="text-center" width="10%">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($transaction->items as $item)
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="{{ $item->product->image_url }}" class="w-100" alt="{{ $item->name }}" title="{{ $item->name }}" />
+                            </div>
+                            <div class="col-10 py-3">
+                                <h5>{{ $item->name }}</h5>
+                                <p>{{ $item->product->description }}</p>
+                                <a href="#" onclick="event.preventDefault();
+                                                document.getElementById('remove-form{{ $item->id }}').submit();">Delete</a>
+                                <form id="remove-form{{ $item->id }}" action="{{ route('front.transaction.removeFromCart', $item) }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center" valign="middle">{{ $item->qty }}</td>
+                    <td class="text-center" valign="middle">{{ $item->price }}</td>
+                </tr>
+                @endforeach
+                <tr>
+                    <td colspan="3" class="text-end">Subtotal({{ $transaction->qty }} items): <strong>{{ $transaction->subtotal }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-@endsection
-
-@section('script')
-<script type="text/javascript">
-    $('#deleteBtn').on('click', function(e) {
-        e.preventDefault();
-        if(confirm('Are you sure want to delete this data?'))
-            $('#deleteForm').submit();
-    })
-</script>
 @endsection

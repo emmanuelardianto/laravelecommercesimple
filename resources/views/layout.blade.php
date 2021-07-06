@@ -88,16 +88,16 @@
         </div>
     </nav>
     <!-- navbar end -->
-    <div class="container-fluid mb-5">
+    <div class="container-fluid">
         @yield('banner')
     </div>
-    <div class="container mb-5">
+    <div class="container">
         @yield('content')
     </div>
 
 
     <!-- footer -->
-    <div class="bg-light">
+    <div class="bg-light mt-5">
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center py-5">
