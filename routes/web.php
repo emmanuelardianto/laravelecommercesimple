@@ -45,6 +45,7 @@ Route::group([
     
     Route::get('/transaction', 'TransactionController@index')->name('transaction');
     Route::get('/transaction/{transaction}', 'TransactionController@detail')->name('transaction.detail');
+    Route::get('/transaction/{transaction}/update', 'TransactionController@update')->name('transaction.update');
 });
 
 Route::group([

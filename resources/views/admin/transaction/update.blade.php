@@ -5,7 +5,6 @@
         <a href="{{ route('admin.transaction') }}" class="py-3 d-block">Back to transaction list</a>
         <h1 class="mb-5">Order #{{ $transaction->code }}</h1>
         @include('components.alert')
-        
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -42,6 +41,24 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="col-12 col-md-6">
+        <form action="{{ route('admin.transaction.update', $transaction) }}" id="formStatusFilter" method="GET">
+            {{ csrf_field() }}
+            <div class="row mb-3">
+                <label for="status" class="col-auto col-form-label">Change Status</label>
+                <div class="col-auto">
+                    <select name="status" id="status" class="form-control">
+                        @foreach(trans('transaction.status') as $key => $item)
+                        <option value="{{ $key }}" {{ $transaction->status == $key ? 'selected' : '' }}>{{ $item }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
