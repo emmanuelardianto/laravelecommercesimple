@@ -40,6 +40,12 @@ class TransactionController extends Controller
         return redirect()->route('front.transaction.cart')->with('success', 'Product added to cart.');
     }
 
+    public function updateQty(TransactionItem $transactionItem, Request $request) {
+        $transactionItem->qty = $request->get('qty');
+        $transactionItem->save();
+        return redirect()->route('front.transaction.cart')->with('success', 'Cart updated.');
+    }
+
     public function removeFromCart(TransactionItem $transactionItem) {
         Transaction::removeFromCart($transactionItem);
         return redirect()->route('front.transaction.cart')->with('success', 'Product removed from cart.');

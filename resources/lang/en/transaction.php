@@ -9,7 +9,7 @@ return [
         'WAITING_FOR_DELIVERY'  => 'Waiting for delivery',
         'ON_THE_WAY'  => 'On the way',
         'DELIVERED'  => 'Delivered',
-        'CANCELED'  => 'Canceled',
+        'CANCELLED'  => 'Cancelled',
         'RETURNED'  => 'Returned',
     ],
 

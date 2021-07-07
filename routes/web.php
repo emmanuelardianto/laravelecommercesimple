@@ -89,6 +89,7 @@ Route::group([
     Route::post('/cart/add/{product}', 'TransactionController@addToCart')->name('transaction.addToCart');
     Route::post('/cart/remove/{transactionItem}', 'TransactionController@removeFromCart')->name('transaction.removeFromCart');
     Route::get('/cart/', 'TransactionController@index')->name('transaction.cart');
+    Route::post('/cart/{transactionItem}', 'TransactionController@updateQty')->name('transaction.cart.update');
     Route::get('/cart/address', 'TransactionController@address')->name('transaction.address');
     Route::post('/cart/address/{address}', 'TransactionController@selectAddress')->name('transaction.selectAddress');
     Route::get('/cart/payment', 'TransactionController@payment')->name('transaction.payment');
