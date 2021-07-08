@@ -25,31 +25,8 @@
                     <a class="nav-link" href="{{ route('front.product.byCategory', $category) }}">{{ $category->name }}</a>
                 </li>
                 @endforeach
-                @if(Auth::check() && Auth::user()->is_admin)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin ({{ Auth::user()->name }})
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
-                        <li><a class="dropdown-item" href="{{ route('admin.category') }}">Category</a></li>
-                        <li><a class="dropdown-item"  href="{{ route('admin.product') }}">Product</a></li>
-                        <li><a class="dropdown-item"  href="{{ route('admin.user') }}">User</a></li>
-                        <li><a class="dropdown-item"  href="{{ route('admin.transaction') }}">Transaction</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </li>
-                @endif
             </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <form class="d-flex">
                         <input class="form-control" type="search" name="search" value="{{ !empty($search) ? $search : '' }}" placeholder="Search" aria-label="Search">
@@ -59,7 +36,7 @@
                     <a class="nav-link" href="{{ route('front.transaction.cart') }}">Cart</a>
                 </li>
                 @if(Auth::check())
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {{ Auth::user()->name }}
                     </a>
@@ -67,6 +44,14 @@
                         <li><a class="dropdown-item" href="{{ route('front.user') }}">My Account</a></li>
                         <li><a class="dropdown-item"  href="{{ route('front.user.wishlist') }}">Wishlist</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        @if(Auth::user()->is_admin)
+                        <li><h6 class="dropdown-header">Admin Menu</h6></li>
+                        <!-- resources/lang/en/menu -->
+                        @foreach(trans('menu.admin') as $menu)
+                        <li><a class="dropdown-item" href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
+                        @endforeach
+                        <li><hr class="dropdown-divider"></li>
+                        @endif
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -92,6 +77,19 @@
         @yield('banner')
     </div>
     <div class="container">
+        <!-- admin only -->
+        @if(Auth::user()->is_admin && Route::is('admin.*'))
+        <ul class="nav nav-tabs my-3">
+        <!-- resources/lang/en/menu -->
+            @foreach(trans('menu.admin') as $menu)
+            <li class="nav-item">
+                <a class="nav-link {{ Route::is($menu['route'].'*') ? 'active' : 'asd'  }}" href="{{ route($menu['route']) }}">
+                    {{ $menu['label'] }}
+                </a>
+            </li>
+            @endforeach
+        </ul>
+        @endif
         @yield('content')
     </div>
 

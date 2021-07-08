@@ -21,7 +21,7 @@
             <tr>
                 <td><a href="{{ route('admin.user.edit', $item) }}" class="text-dark">{{ $item->email }}</a></td>
                 <td>{{ $item->name }}</td>
-                <td>{{ $item->is_admin }}</td>
+                <td>{{ $item->is_admin ? 'Yes' : 'No' }}</td>
             </tr>
             @endforeach
         </tbody>

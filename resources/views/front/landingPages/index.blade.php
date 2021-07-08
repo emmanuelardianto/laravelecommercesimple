@@ -25,21 +25,21 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row py-3">
     <div class="col-12">
         <h2 class="mb-3">Recommendations</h2>
     </div>
     @foreach($products as $item)
-        <div class="col-lg-2 col-md-3 col-6 mb-3">
-            <div class="card">
-                <a href="{{ route('front.product.detail', $item) }}">
-                    <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title" style="height: 50px; overflow: hidden;">{{ $item->name }}</h5>
-                </div>
+    <div class="col-lg-2 col-md-3 col-6 mb-3">
+        <div class="card">
+            <a href="{{ route('front.product.detail', $item) }}">
+                <img src="{{ $item->image_url }}" class="card-img-top" alt="{{ $item->name }}" title="{{ $item->name }}" />
+            </a>
+            <div class="card-body">
+                <h5 class="card-title" style="height: 50px; overflow: hidden;">{{ $item->name }}</h5>
             </div>
         </div>
+    </div>
     @endforeach
 </div>
 @endsection

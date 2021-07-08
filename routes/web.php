@@ -37,11 +37,11 @@ Route::group([
     Route::post('/product/{product}/destroy', 'ProductController@destroy')->name('product.destroy');
 
     Route::get('/user', 'UserController@index')->name('user');
-    Route::get('/user/create', 'UserController@create')->name('front.create');
-    Route::post('/user/create', 'UserController@store')->name('front.store');
-    Route::get('/user/{user}/edit', 'UserController@edit')->name('front.edit');
-    Route::post('/user/{user}/edit', 'UserController@store')->name('front.update');
-    Route::post('/user/{user}/destroy', 'UserController@destroy')->name('front.destroy');
+    Route::get('/user/create', 'UserController@create')->name('user.create');
+    Route::post('/user/create', 'UserController@store')->name('user.store');
+    Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
+    Route::post('/user/{user}/edit', 'UserController@store')->name('user.update');
+    Route::post('/user/{user}/destroy', 'UserController@destroy')->name('user.destroy');
     
     Route::get('/transaction', 'TransactionController@index')->name('transaction');
     Route::get('/transaction/{transaction}', 'TransactionController@detail')->name('transaction.detail');
