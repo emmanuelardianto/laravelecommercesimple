@@ -78,7 +78,7 @@
     </div>
     <div class="container">
         <!-- admin only -->
-        @if(Auth::user()->is_admin && Route::is('admin.*'))
+        @if(Auth::check() && Auth::user()->is_admin && Route::is('admin.*'))
         <ul class="nav nav-tabs my-3">
         <!-- resources/lang/en/menu -->
             @foreach(trans('menu.admin') as $menu)

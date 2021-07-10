@@ -24,7 +24,25 @@ class UserController extends Controller
     }
 
     public function index() {
-        return view('front.user.index');
+        $user = $this->user;
+        return view('front.user.index', compact('user'));
+    }
+
+    public function profileUpdate(Request $request) {
+        $request->validate([
+            'email' => 'required|email|unique:users,email,'.$this->user->id,
+            'name' => 'required',
+        ]);
+
+
+        $user = $this->user;
+        $user = $user->fill([
+            'email' => $request->get('email'),
+            'name' => $request->get('name'),
+        ]);
+
+        $user->save();
+        return redirect()->route('front.user', compact('user'))->with('success', 'Data saved.');
     }
 
     public function wishlist() {

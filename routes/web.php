@@ -56,15 +56,6 @@ Route::group([
     Route::get('/product', 'ProductController@index')->name('product');
     Route::get('/category/{category}', 'ProductController@byCategory')->name('product.byCategory');
     Route::get('/product/{product}', 'ProductController@show')->name('product.detail');
-
-    Route::get('/account', 'UserController@index')->name('user');
-    Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
-    Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
-    Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
-    Route::get('/account/transaction', 'UserController@transaction')->name('user.transaction');
-    Route::get('/account/transaction/{transaction}', 'UserController@transactionDetail')->name('user.transactionDetail');
-    Route::get('/account/security', 'UserController@password')->name('user.password');
-    Route::post('/account/security', 'UserController@passwordUpdate')->name('user.password.update');
 });
 
 Route::group([
@@ -74,6 +65,17 @@ Route::group([
     'middleware' => ['auth']
 ],function () {
 
+
+    Route::get('/account', 'UserController@index')->name('user');
+    Route::post('/account/', 'UserController@profileUpdate')->name('user.profile.update');
+    Route::get('/account/wishlist', 'UserController@wishlist')->name('user.wishlist');
+    Route::post('/account/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
+    Route::post('/account/wishlist/remove/{wishlist}', 'UserController@removeWishlist')->name('user.wishlist.remove');
+    Route::get('/account/transaction', 'UserController@transaction')->name('user.transaction');
+    Route::get('/account/transaction/{transaction}', 'UserController@transactionDetail')->name('user.transactionDetail');
+    Route::get('/account/security', 'UserController@password')->name('user.password');
+    Route::post('/account/security', 'UserController@passwordUpdate')->name('user.password.update');
+    Route::get('/account/profile', 'UserController@profile')->name('user.profile');
     Route::get('/', 'UserController@index')->name('user');
     Route::get('/wishlist', 'UserController@wishlist')->name('user.wishlist');
     Route::post('/wishlist/add', 'UserController@addWishlist')->name('user.wishlist.add');
