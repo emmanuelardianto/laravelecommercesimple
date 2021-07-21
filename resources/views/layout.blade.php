@@ -20,9 +20,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                @foreach(\App\Models\Category::orderBy('name')->take(5)->get() as $category)
+                @foreach(\App\Models\Category::orderBy('name')->take(3)->get() as $category)
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('front.product.byCategory', $category) }}">{{ $category->name }}</a>
+                    <a class="nav-link" href="#">{{ $category->name }}</a>
                 </li>
                 @endforeach
             </ul>

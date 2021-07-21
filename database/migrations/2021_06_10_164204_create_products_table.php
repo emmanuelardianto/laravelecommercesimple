@@ -19,8 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('slug', 500)->nullable();
             $table->string('name', 1000);
             $table->string('description', 1000)->default('');
-            $table->boolean('status')->default(false);
-            $table->decimal('price')->default(0);
+            $table->string('gender');
             $table->timestamps();
         });
     }

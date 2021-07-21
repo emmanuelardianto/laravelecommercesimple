@@ -17,6 +17,7 @@ class CreateTransactionItemsTable extends Migration
             $table->id();
             $table->integer('transaction_id');
             $table->integer('product_id');
+            $table->integer('product_variant_id');
             $table->string('name', 1000)->nullable();
             $table->double('price')->default(0);
             $table->double('discount')->default(0);
