@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 1000);
             $table->string('description', 1000)->default('');
             $table->string('gender');
+            $table->string('variant_type');
             $table->timestamps();
         });
     }

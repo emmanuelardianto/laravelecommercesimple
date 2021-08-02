@@ -26,8 +26,9 @@ class ProductFactory extends Factory
             'slug' => $this->faker->slug(),
             'name' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
-            'status' => rand(0, 1),
-            'price' => rand(10, 1000),
+            'gender' => 'male'
+            // 'status' => rand(0, 1),
+            // 'price' => rand(10, 1000),
         ];
     }
 }
