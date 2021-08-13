@@ -16,8 +16,10 @@ class CreateProductVariantsTable extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->integer('product_id');
-            $table->string('type_name');
-            $table->string('type_value');
+            $table->string('variant_type1');
+            $table->string('variant_value1');
+            $table->string('variant_type2');
+            $table->string('variant_value2');
             $table->integer('qty');
             $table->boolean('status')->default(false);
             $table->json('image_url')->nullable();
