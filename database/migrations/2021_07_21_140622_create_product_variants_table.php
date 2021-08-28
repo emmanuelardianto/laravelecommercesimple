@@ -17,9 +17,9 @@ class CreateProductVariantsTable extends Migration
             $table->id();
             $table->integer('product_id');
             $table->string('variant_type1');
-            $table->string('variant_value1');
+            $table->integer('variant_value1');
             $table->string('variant_type2');
-            $table->string('variant_value2');
+            $table->integer('variant_value2');
             $table->integer('qty');
             $table->boolean('status')->default(false);
             $table->json('image_url')->nullable();

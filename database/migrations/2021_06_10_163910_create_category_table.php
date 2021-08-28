@@ -18,6 +18,7 @@ class CreateCategoryTable extends Migration
             $table->integer('parent')->nullable();
             $table->string('name', 100)->nullable();
             $table->string('slug', 100)->nullable();
+            $table->boolean('line_up')->default(0);
             $table->json('gender')->nullable();
             $table->timestamps();
         });
