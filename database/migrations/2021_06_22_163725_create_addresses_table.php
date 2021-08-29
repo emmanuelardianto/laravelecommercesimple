@@ -20,9 +20,10 @@ class CreateAddressesTable extends Migration
             $table->string('last_name', 100);
             $table->string('first_name_kana', 100);
             $table->string('last_name_kana', 100);
-            $table->string('line1', 500);
-            $table->string('line2', 500)->nullable();
-            $table->string('country', 100);
+            $table->string('address1', 500);
+            $table->string('address2', 500)->nullable();
+            $table->string('country', 100)->default('Japan');
+            $table->string('perfecture', 100);
             $table->string('city', 100);
             $table->string('zip_code', 10);
             $table->string('phone', 15);
