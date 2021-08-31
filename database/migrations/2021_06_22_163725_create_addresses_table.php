@@ -23,7 +23,7 @@ class CreateAddressesTable extends Migration
             $table->string('address1', 500);
             $table->string('address2', 500)->nullable();
             $table->string('country', 100)->default('Japan');
-            $table->string('perfecture', 100);
+            $table->string('prefecture', 100);
             $table->string('city', 100);
             $table->string('zip_code', 10);
             $table->string('phone', 15);
